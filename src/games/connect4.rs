@@ -16,9 +16,9 @@ use serde::Deserialize;
 
 // Specific impl for minimax.
 // NOTE: May not be neede for some super genric stuff.
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 pub struct Board {
-    slots: Vec<i32>,
+    pub slots: Vec<i32>,
 }
 
 
@@ -37,6 +37,10 @@ impl Board {
 
     fn validate_board(slots: Vec<i32>) -> bool {
         true  // TODO need to finish this implementation.
+    }
+
+    pub fn get_slots(self) -> Vec<i32> {
+        self.slots.clone()
     }
 
     pub fn pprint(self) {

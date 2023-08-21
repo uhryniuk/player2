@@ -1,4 +1,3 @@
-
 /*
  *  Params: depth: int, turn: &str
  *      Recurse rotating each turn in the zero sum game.
@@ -24,3 +23,41 @@
  *      rotate # rotating the player/turn
  *
  */
+
+pub trait Eval {
+    fn compare(&self) -> bool {
+        true
+    }
+
+    fn evaluate(&self) -> i32 {
+        1
+    }
+}
+
+#[derive(Debug)]
+pub struct Minimax {
+    depth: i32,     // Recurse Depth
+    branch_count: i32,  // Number of branches to spawn (7 in C4 as example)
+    player_starts: bool,
+}
+
+impl Minimax {
+    pub fn new() -> Minimax {
+        Minimax { depth: 3, branch_count: 7, player_starts: true }
+    }
+
+    pub fn from(depth: i32, branch_count: i32, player_starts: bool) -> Minimax {
+        Minimax { depth, branch_count, player_starts }
+    }
+
+    pub fn recurse(&self) {
+        println!("Down we go!");
+    }
+}
+
+impl Eval for Minimax {
+    fn compare(&self) -> bool {
+        println!("This is minimax comparing!");
+        true 
+    }
+}

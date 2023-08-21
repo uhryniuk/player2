@@ -1,1 +1,1 @@
-use minimax;
+pub mod minimax;
