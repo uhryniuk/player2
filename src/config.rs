@@ -1,39 +1,71 @@
-pub mod environment { 
+use std::env;
+use std::option::Option;
+use std::str::FromStr;
+use dotenv::dotenv;
+use std::net::Ipv4Addr;
 
-    use std::env;
-    use dotenv::dotenv;
-    use std::collections::HashMap;
 
-    #[derive(Debug)]
-    pub struct Config {
-        _map: HashMap<String, String>,
-    }
-    
-    impl Config {
-        pub fn init() -> Config {
-            dotenv().ok(); // Read the .env file
-            Config { _map: HashMap::new() }
-        }
+#[derive(Debug, Clone)]
+pub struct Config {
+    pub env: EnvironmentType,
+    pub host: Ipv4Addr, 
+    pub port: u16,
+    pub tls_cert: Option<String>,
+    pub tls_key: Option<String>,
+}
 
-        pub fn frontend(&mut self) -> String {
-            const KEY: &str = "FRONTEND";
-            const OPTS: [&str; 2] = ["WEB", "LOCAL"];
-            const DEFAULT: &str = OPTS[0];
-            
-            match env::var(KEY) {
-                Ok(v) => {
-                    if OPTS.contains(&v.as_str()) {
-                        return String::from(v)
-                    }
-                    String::from(DEFAULT) 
-                },
-                Err(e) => {
-                    println!("Error parsing \'FRONTEND\': {:?}", e);
-                    println!("Defaulting to {:?}", DEFAULT);
-                    String::from(DEFAULT)
-                }
+impl Config {
+    pub fn init() -> Config {
+        dotenv().ok(); // Read the .env file
+       
+        let env = match env::var("ENV") {
+            Ok(value) => EnvironmentType::from_str(value.as_str()).unwrap(),
+            Err(v) =>  {
+                println!("NO HIT: {:?}", v);
+                EnvironmentType::PROD
             }
+        };
+
+        let host = match env {
+            EnvironmentType::PROD => Ipv4Addr::BROADCAST,
+            _ => Ipv4Addr::LOCALHOST,
+        };
+
+        let default_port: u16 = 9988;
+        let port = match env::var("PORT") {
+            Ok(port_string) => port_string.parse::<u16>().unwrap_or_else(|_| default_port),
+            Err(_) => {
+                // TODO add debug level log since port wasn't found.
+                default_port
+            }
+        };
+
+        Config { 
+            env,
+            host,
+            port,
+            tls_cert: None,
+            tls_key: None
         }
     }
 }
 
+#[derive(Debug, Clone)]
+pub enum EnvironmentType {
+    PROD,
+    DEV,
+    LOCAL,
+}
+
+impl FromStr for EnvironmentType {
+    type Err = EnvironmentType;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.to_uppercase().as_str() {
+            "PROD" => Ok(EnvironmentType::PROD),
+            "DEV" => Ok(EnvironmentType::DEV),
+            "LOCAL" => Ok(EnvironmentType::LOCAL),
+            _ => Err(EnvironmentType::LOCAL),
+        }
+    }
+}

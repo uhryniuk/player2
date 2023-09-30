@@ -2,7 +2,7 @@ import utils from './utils'
 import checkWinner from './check-winner';
 
 const URLs = {
-  MINIMAX_ENDPOINT : 'http://127.0.0.1:8000/api/minimax/connect4/move'
+  MINIMAX_ENDPOINT : 'http://dilly:8000/api/minimax/connect4/move'
 }
 
 function flattenBoard(board) {

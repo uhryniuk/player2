@@ -1,56 +1,75 @@
-/*
- *  Todo list:
- *  1. Create the generic Board
- *  2. Create some impls for working with the Board
- *  3. Research the To and From impls more for structs.
- *      - Need to parse from 2D arr into our struct
- *  4. Implement to the eval trait to compare 2 boards together
- *      - Potentially N boards too? That could simplify a lot.
- *
- *
- *
- */
-use std::result::Result::{Ok, Err};
-use serde::Deserialize;
+use crate::models::minimax::Minimax;
+use serde::{Serialize, Deserialize};
 
+const ROWS: i32 = 6;
+const COLS: i32 = 7;
+pub const AGENT: i32 = 2;
+pub const PLAYER: i32 = 1;
+pub type Board = [[i32; ROWS as usize]; COLS as usize];
+pub type Move = i32;
 
-// Specific impl for minimax.
-// NOTE: May not be neede for some super genric stuff.
-#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
-pub struct Board {
-    pub slots: Vec<i32>,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GameState {
+    pub board: Board,  // 6 columns and 7 rows...
+    pub value: Option<i32>, // The evaluated huristic value.
 }
 
-
-impl Board {
-    pub fn new() -> Board {
-        Board { slots: [0; 42].to_vec() }
+impl GameState {
+    pub fn new(board: Board) -> GameState {
+        GameState { board, value: None }
     }
 
-    // incorrect, this should parse the string from the request.
-    pub fn from(slots: &Vec<i32>) -> Result<Board, String> {
-        match Self::validate_board(slots.to_vec()) {
-            true => Ok(Board { slots: slots.to_vec() }),
-            false => Err("Cannot create board from provided slots.".to_string())
-        }
+    pub fn from(board: Board, value: Option<i32>) -> GameState {
+        GameState { board, value }
     }
 
-    fn validate_board(slots: Vec<i32>) -> bool {
-        true  // TODO need to finish this implementation.
+    pub fn dumbie_state() -> GameState {
+        GameState { board: GameState::blank_board(), value: None }
     }
 
-    pub fn get_slots(self) -> Vec<i32> {
-        self.slots.clone()
+    pub fn blank_board() -> Board {
+        [
+            [0,0,0,0,0,0], // 1
+            [0,0,0,0,0,0], // 2
+            [0,0,0,0,0,0], // 3
+            [0,0,0,0,0,0], // 4
+            [0,0,0,0,0,0], // 5
+            [0,0,0,0,0,0], // 6
+            [0,0,0,0,0,0], // 7
+        ]
     }
 
-    pub fn pprint(self) {
-        for i in 0..(self.slots.len()) {
-            if i % 7 == 0&& i != 0 {
-                println!("");
+    pub fn generate_child(value: Board, index: i32, max_first: bool) -> Board {
+        let mut board = value.clone();
+        let mut column = board[index as usize];
+        let child_value = if max_first { AGENT.clone() } else { PLAYER.clone() };
+        
+        for i in 0..(ROWS as i8){
+            // Hacky way to count down.
+            let idx = (i - ROWS as i8).abs() - 1;
+            if column[idx as usize] == 0 {
+                column[idx as usize] = child_value;
+                break;
             }
-            print!(" {:?} ", self.slots[i]);
-        };
-
-        println!("");  // Ensure new line at end of pretty print.
+        }
+        board[index as usize] = column;
+        
+        return board
     }
 }
+
+
+impl Minimax<Board, i32> for GameState {
+    fn value(&self) -> Board {
+        self.board
+    }
+
+    fn generate_children(&self, value: Board, max: bool) -> Vec<Board> {
+        (0..COLS).into_iter().map(|i| GameState::generate_child(value, i, max)).collect()
+    }
+
+    fn evaluate(&self, value: Board) -> i32 {
+       1 
+    }
+}
+
