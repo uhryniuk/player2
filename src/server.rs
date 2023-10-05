@@ -1,7 +1,7 @@
 //  Notes
 //  https://docs.rs/http/latest/http/request/struct.Request.html -> How to de and se reqs.
 //  https://docs.rs/axum/latest/axum/response/index.html -> All sorts of goodies for responses.
-use crate::config::Config;
+use crate::config::{Config, EnvironmentType};
 
 use axum::{Router, http::{Method, header}};
 use tower_http::cors::{Any, CorsLayer, Cors};
@@ -25,10 +25,13 @@ impl HttpServer {
     }
 
     pub async fn start(self, router: Router) {
-        let host = IpAddr::V4(self.config.host);
+        let mut host = IpAddr::V4(self.config.host);
+        let other_host: [u8; 4] = [127,0,0,1];
+        host = IpAddr::from(other_host);
         let addr = SocketAddr::new(host, self.config.port);
+        let final_router = router.layer(HttpServer::create_cors_layer());
         tracing::info!("listening on {}", addr);
-        axum::Server::bind(&addr).serve(router.clone().into_make_service()).await.unwrap();
+        axum::Server::bind(&addr).serve(final_router.clone().into_make_service()).await.unwrap();
     }
 
 
