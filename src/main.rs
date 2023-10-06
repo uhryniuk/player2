@@ -5,7 +5,7 @@ mod games;
 mod routes;
 
 use axum::Router;
-use models::minimax::Minimax;
+use models::minimax::{Minimax};
 use server::HttpServer;
 use config::Config;
 
@@ -22,7 +22,7 @@ async fn main() {
     
     // TODO this is just for simple local testing.
     let gs = games::connect4::GameState::dumbie_state();
-    let x = gs.get_move(4, true);
+    let x = gs.get_move(3, true);
     println!("{:?}", x);
 }
 

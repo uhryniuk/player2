@@ -1,0 +1,50 @@
+pub trait Minimax<T: Clone, S: Clone + Ord> {
+    /// Compares which value in all children is the best, max is true, then we max the first layer
+    fn get_move(&self, depth: i32, mut max: bool) -> T {
+
+        let mut computed: Vec<(T, S)> = Vec::new();
+        let possible = self.generate_children(self.value(), max);
+
+        for child in possible {
+            let mut local_max = !max.clone(); 
+            let mut result = child.clone();
+            for _ in 0..(depth-1) { // TODO fix the depth, think about what it should be.
+                let local = self.generate_children(result, local_max); // TODO which max should be used?
+                //result = local.iter()
+                //    .max_by_key(|v| self.evaluate(v.clone().clone()))
+                //    .unwrap()
+                //    .clone();
+                //
+                
+                for child in local.iter_mut() {
+                    let res_val = self.evaluate(result);
+                    let chi_val = self.evaluate(*child);
+                    if local_max {
+                        result = if res_val > chi_val { result } else { *child };
+                    } else {
+                        result = if res_val > chi_val { result } else { *child };
+                    }
+                }
+
+                local_max = !local_max;
+            }
+            computed.push((child, self.evaluate(result)));
+        }
+
+        let mut optimal: T = self.value();
+        let mut maximum: S = self.evaluate(optimal.clone());
+        for (t, s) in computed.iter() {
+            if s > &maximum {
+                maximum = s.clone();
+                optimal = t.clone();
+            }
+        }
+
+        optimal
+    }
+    
+    fn value(&self) -> T;
+    fn generate_children(&self, value: T, max: bool) -> Vec<T>;
+    fn evaluate(&self, value: T) -> S;
+}
+

@@ -6,25 +6,23 @@ const URLs = {
 }
 
 
-function convertBoardTypes(board) {
+function convertBoardTypes(board, toInt) {
   for(let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++){
 
-      console.log(board[i][j])
-      board[i][j] = Number(board[i][j]) 
+      board[i][j] = toInt ? Number(board[i][j]) : String(board[i][j])
     }
   }
-  console.log(board)
   return board;
 }
 
-// TODO consider writing this, a bit dirty.
 async function getAgentMove(boardState, winnerState){
   const [board, setBoard]   = boardState;
   const [winner, setWinner] = winnerState;
   
-  let newBoard = utils.transposeBoard(convertBoardTypes(board))
+  let newBoard = utils.transposeBoard(convertBoardTypes(board, true))
   let win = checkWinner(newBoard)
+  console.log("Before POST")
   console.log(newBoard)
   if (!win){
     try {
@@ -39,6 +37,8 @@ async function getAgentMove(boardState, winnerState){
       // Board is rendered in transposed format.
       newBoard = await newBoardResponse.json();
       newBoard = newBoard.board;
+      console.log("AFTER post")
+      console.log(newBoard)
       win = checkWinner(newBoard) // Check before Transposing again.
     } catch (e) {
       console.log("Error occured when calling the board: ",e)
@@ -47,7 +47,7 @@ async function getAgentMove(boardState, winnerState){
   }
 
   // Render engine needs matrix transposed form of board.
-  const newTransposedBoard = utils.transposeBoard(newBoard)
+  const newTransposedBoard = utils.transposeBoard(convertBoardTypes(newBoard, false))
   setBoard(newTransposedBoard)
   setWinner(win)
 

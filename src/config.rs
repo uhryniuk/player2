@@ -20,8 +20,7 @@ impl Config {
        
         let env = match env::var("ENV") {
             Ok(value) => EnvironmentType::from_str(value.as_str()).unwrap(),
-            Err(v) =>  {
-                println!("NO HIT: {:?}", v);
+            Err(_) =>  {
                 EnvironmentType::PROD
             }
         };
