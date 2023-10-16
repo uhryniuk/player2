@@ -1,0 +1,12 @@
+# Use
+- These are for all the possible pages that be encountered.
+    - This could include:
+        - Homepage
+        - Login Page
+        - Leaderboard Page
+
+- In general, any file that constructs a page with a unqiue route to it.
+
+## Refresh
+- The names of the folder will be for shared styling.
+- Otherwise, the matching .css is for specific styles.

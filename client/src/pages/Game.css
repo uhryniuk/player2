@@ -1,0 +1,15 @@
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#layout {
+  margin-top: 10vh;
+  min-width: 80vw;
+  min-height: 80vh;
+  display: flex;
+}
+
+
