@@ -20,9 +20,5 @@ async fn main() {
         .nest("/api", routes::get_routes());
     server.start(router).await;
     
-    // TODO this is just for simple local testing.
-    let gs = games::connect4::GameState::dumbie_state();
-    let x = gs.get_move(3, true);
-    println!("{:?}", x);
 }
 
