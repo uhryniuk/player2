@@ -1,10 +1,6 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
 import GameBoard from '../comp/GameBoard'
-import utils from '../lib/utils'
 import { createRawBoard } from "../models/Board";
-
 import './Game.css'
 import './pages.css'
 
@@ -13,7 +9,7 @@ const Game = () => {
 
   
   let boardState = useState(createRawBoard());
-
+  
   return (
     <div id="container">
       {/*

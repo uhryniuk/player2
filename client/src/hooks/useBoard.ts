@@ -1,9 +1,22 @@
+import { Board } from "../models/Types"
+
+
+let x = 'http://localhost:9988/api/connect4/make-move';
+
+
 
 
 const agent = () => {
-  
-  const getNextMove = (thing: string) => {
+  const getNextMove = async (board: Board) => {
+    let newBoardResponse = await fetch(x, {
+      method : "POST",
+      mode: 'cors',
+      headers: new Headers({'content-type': 'application/json'}),
+      body : JSON.stringify({board: board, value: null}),
+    })
 
+    // Board is rendered in transposed format.
+    return await newBoardResponse.json();
   }
   
   return {
@@ -11,10 +24,11 @@ const agent = () => {
   }
 }
 
+// NOTE implement this when WS is implemented server side.
 const multiplayer = () => {}
 
 
-export default {
+export {
   agent,
   multiplayer,
 }

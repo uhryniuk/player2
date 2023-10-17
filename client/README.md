@@ -27,4 +27,7 @@ https://unpkg.com/98.css
 
 ## Infra
 - Remove the nginx config, that'll go on linode.
+    - Nevermind, the nginx config isn't for deployment now.
+    - It's for building a local docker dev container.
+
 - convert all js to ts.

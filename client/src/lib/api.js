@@ -56,7 +56,8 @@ async function getAgentMove(boardState, winnerState){
 
 const api = {
   getAgentMove : getAgentMove,
-  URLs : URLs
+  URLs : URLs,
 }
+
 
 export default api
