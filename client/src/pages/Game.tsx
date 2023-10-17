@@ -3,12 +3,17 @@ import { useState } from "react";
 
 import GameBoard from '../comp/GameBoard'
 import utils from '../lib/utils'
+import { createRawBoard } from "../models/Board";
 
 import './Game.css'
 import './pages.css'
 
 
 const Game = () => {
+
+  
+  let boardState = useState(createRawBoard());
+
   return (
     <div id="container">
       {/*
@@ -24,7 +29,7 @@ const Game = () => {
       <div id='layout' className='window'>
         
         <section className="col">
-          <GameBoard />
+          <GameBoard boardState={boardState}/>
         </section>
 
         <section className="col">

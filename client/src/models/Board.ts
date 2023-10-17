@@ -14,13 +14,20 @@ const createRawBoard = (): Board => {
   ]
 }
 
-
-
-
-
+const makeMove = (board: Board, type: CellState, i: number) => {
+  for (let idx = board.length - 1; idx >= 0; idx--) {
+    if (board[idx][i] == CellState.EMPTY) {
+      board[idx][i] = type;
+      break;
+    }
+  }
+  
+  return JSON.parse(JSON.stringify(board));
+}
 
 
 export {
   createRawBoard,
+  makeMove,
 }
 

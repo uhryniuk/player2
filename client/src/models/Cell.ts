@@ -1,8 +1,8 @@
 
 enum CellState {
   EMPTY = '0',
-  P1 = '1',
-  P2 = '2'
+  PLAYER = '1',
+  OPPONENT = '2'
 }
 
 export {
