@@ -1,48 +1,44 @@
-import React from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { Board, Cell } from '../models/Types';
 import { CellState } from '../models/Cell';
-import { createCell } from './Cell';
-import { createRawBoard } from '../models/Board';
-import './styles/Board.css';
+import { makeMove } from '../models/Board';
+import './styles/GameBoard.css';
+import './styles/Cell.css';
 
 
-
-// TODO move this into a models file, probably for Cell.ts.
-const placeChip = (board: Board, type: CellState, i: number) => {
-  // Scan the board, usng index replace the next available cell with the type chip.
-}
-
-
-
-
-const makeMove = (callback) => {
-
-}
-
-const buildBoard = (board: Board): Cell[] => {
+const renderBoard = (boardState: any, type: CellState): Cell[] => {
+    let [board, setBoardState] = boardState;
     let boardCells: Cell[] = []; 
+
     board.forEach((_: CellState[], i: number) => {
       const tempCells: Cell[] = []; 
+
       board[i].forEach((state: CellState, j: number) => {
-        tempCells.push(createCell(state, j, (e) => {
-          console.log(e)
-        }));
+        // onClick callback that sets color of cell and refresh state.
+        let callback = () => setBoardState(makeMove(board, type, j));
+        
+        // The actuall cell on the board.
+        tempCells.push(<div key={j} className={`cell-${state}`} onClick={callback}>_</div>) 
       })
+
       boardCells.push((<div key={i} style={{display: 'flex'}}>{tempCells}</div>));
     })
+
     return boardCells;
 }
 
-
-
 const GameBoard = (props: any) => {
+  // NOTE gameMode should be a prop passed to GameBoard.
+  
+  // Default, but we can swap this depending on the game mode.
+  const type = CellState.PLAYER; 
 
-  const board: Board = createRawBoard();
-  return (<div>{buildBoard(board)}</div>)
+  return (
+    <div className='window'>
+      {renderBoard(props.boardState, type)}
+    </div>
+  )
 }
-
-
-
 
 export default GameBoard;
 
