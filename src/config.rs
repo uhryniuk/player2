@@ -1,14 +1,13 @@
+use dotenv::dotenv;
 use std::env;
+use std::net::Ipv4Addr;
 use std::option::Option;
 use std::str::FromStr;
-use dotenv::dotenv;
-use std::net::Ipv4Addr;
-
 
 #[derive(Debug, Clone)]
 pub struct Config {
     pub env: EnvironmentType,
-    pub host: Ipv4Addr, 
+    pub host: Ipv4Addr,
     pub port: u16,
     pub tls_cert: Option<String>,
     pub tls_key: Option<String>,
@@ -17,12 +16,10 @@ pub struct Config {
 impl Config {
     pub fn init() -> Config {
         dotenv().ok(); // Read the .env file
-       
+
         let env = match env::var("ENV") {
             Ok(value) => EnvironmentType::from_str(value.as_str()).unwrap(),
-            Err(_) =>  {
-                EnvironmentType::PROD
-            }
+            Err(_) => EnvironmentType::PROD,
         };
 
         let host = match env {
@@ -39,12 +36,12 @@ impl Config {
             }
         };
 
-        Config { 
+        Config {
             env,
             host,
             port,
             tls_cert: None,
-            tls_key: None
+            tls_key: None,
         }
     }
 }

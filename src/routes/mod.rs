@@ -1,15 +1,13 @@
 mod connect4;
+mod auth;
+pub mod utils;
 
-use axum::{
-    Router,
-};
-use connect4::*;
+use self::utils::RouterInfo;
 
-pub fn get_routes() -> Router {
-    Router::new()
-        .nest("/connect4", add_connect4_routes())
-        // NOTE add more game routes.
+pub fn get_routes() -> RouterInfo {
+    let c4 = RouterInfo::nest("/connect4", vec!(
+        connect4::get_routes(),
+    ));
 
+    RouterInfo::nest("/api", vec!(c4,))
 }
-
-

@@ -1,11 +1,9 @@
 import { Board } from "../models/Types"
-
+import config from '../config';
 
 let x = 'http://localhost:9988/api/connect4/make-move';
 
-
-
-
+console.log(config)
 const agent = () => {
   const getNextMove = async (board: Board) => {
     let newBoardResponse = await fetch(x, {

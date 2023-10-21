@@ -4,6 +4,13 @@ import Game from './pages/Game'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css'
 import '98.css';
+import subscriber from './hooks/useWebSocket';
+
+
+subscriber.subscribe('message', (socket) => {
+  console.log("Direct Access to socket if needed too.", socket);
+})
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -14,6 +21,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>
 )
-
-
 
