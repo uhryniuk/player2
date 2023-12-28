@@ -1,45 +1,34 @@
 import React, { useState } from "react";
 import GameBoard from '../comp/GameBoard'
+import Chat from "../comp/Chat";
+import Leaderboard from "../comp/Leaderboard"
 import Nav from "../comp/Nav";
 import { createRawBoard } from "../models/Board";
 import './Game.css'
 import './pages.css'
 
-
-const Game = () => {
-
-
+function Game(props: any) {
   let boardState = useState(createRawBoard());
 
   return (
-    <div className="window">
-      {/* Top level window */}
+    // Window ID corresponds to the entire window of the main frame.
+    <div id="window" className="window">
       <Nav />
-      <div id="container">
-        {/*
-        Container holds the layout of the widgets
-          - Container should have no limiting dimensions usch as height or width
-          - Container is used for control flow and alignment.
-        Layout orchestrates the layout/direction of the widgets
-          - Has limiting dimensions and controls flow on mobile too.
-        Each widget is a composite component: GameBoard, Leaderboard, Chat, etc.
-          - Controls it's child flow for mobile.
-          - Controls it's state and all others.
-      */}
-
-        <div id='layout' className='window'>
-
-          <section className="col">
-            <GameBoard boardState={boardState}/>
+      <div id="layout">
+        <div id="container" className=''>
+          
+          {/* first */}
+          <section id={"col-1"} className={"col"}>
+            <GameBoard className={"widget"} boardState={boardState}/>
           </section>
 
-          <section className="col">
-            <div>Leaderboards</div>
-            <div>Chat</div>
+          {/* Second widget group */}
+          <section id={"col-2"} className={"col"}>
+            <Leaderboard className={"widget"} />
+            <Chat className={"widget"} />
           </section>
 
         </div>
-
       </div>
     </div>
   )

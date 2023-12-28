@@ -1,0 +1,45 @@
+
+#chat {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+#thread {
+  flex: 1; /* stretchs to parent */
+  background: white;
+  margin: 4px;
+  padding: 4px;
+  
+  /* Override values to compensate for chatbox sizing */
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+}
+
+#chatbox {
+  display: flex;
+  padding: 2px;
+}
+
+#chatbox > * {
+  margin: 2px;
+}
+
+#message-field {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-message {
+  
+  padding: 2px;
+  padding-left: 0px;
+}
+
+/* Messages from users and SSEvents */
+.user-message > * {
+  padding: 1px;
+}
+.event-message {
+
+}

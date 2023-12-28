@@ -1,11 +1,25 @@
+
+/* Board, Row and Cell */
+#board-frame {
+  display: flex;
+  flex-direction: column;
+}
+.cell-col {
+  display: flex; 
+  flex: 1; /* strechts row to fit */
+}
+.cell {
+  flex: 1; /* stretchs the cell to fit */
+}
+
+/* Free, Player 1 and Player 2 states. */
 .cell-0 {
   background: white;
 }
-
 .cell-1 {
   background: red;
 }
-
 .cell-2 {
   background: blue;
 }
+

@@ -1,14 +1,38 @@
-
-#container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#window {
+  min-height: 99vh;
 }
 
+
 #layout {
-  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+#container {
   min-width: 80vw;
   min-height: 80vh;
+  display: flex;
+}
+
+.col {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#col-1 {
+  width: 70%;
+}
+#col-2 {
+  width: 30%;
+}
+
+/* base widget styling */
+.widget {
+  flex: 1; /* Required by each widget on the screen */
   display: flex;
 }
 

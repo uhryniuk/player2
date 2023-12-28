@@ -1,0 +1,26 @@
+/* 
+* This top level container is not pointless 
+* It allows for the row overflow to look nice.
+* Otherwise table rows clip through table-container.
+*/
+#leaderboard {
+  display: flex;
+  max-height: 25vh;
+}
+
+#table-container {
+  flex: 1;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  /* Adds thin grey rim around container */
+  padding: 4px;
+  margin: 4px;
+}
+
+.interactive {
+  width: 100%;
+
+  /* Makes the categories roll with rows. */
+  overflow: hidden;
+}

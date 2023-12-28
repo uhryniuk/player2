@@ -11,10 +11,8 @@ const renderBoard = (boardState: any, type: CellState): Cell[] => {
   let boardCells: Cell[] = []; 
 
   board.forEach((_: CellState[], i: number) => {
-    const tempCells: Cell[] = []; 
-
+    const colCells: Cell[] = []; 
     board[i].forEach((state: CellState, j: number) => {
-
       let callback = async () => {
         let updatedboard = makeMove(board, type, j);
         setBoardState(updatedboard);
@@ -24,27 +22,23 @@ const renderBoard = (boardState: any, type: CellState): Cell[] => {
         updatedboard = await agent().getNextMove(updatedboard);
         setBoardState(updatedboard.board);
       };
-
-      // Add cell, set it's colour
-      tempCells.push(<div key={j} className={`cell-${state}`} onClick={callback}>_</div>) 
+      colCells.push(<div key={j} className={`cell cell-${state}`} onClick={callback}></div>) 
     })
-
-    // Add column, ensure it's column-wise with flex.
-    boardCells.push((<div key={i} style={{display: 'flex'}}>{tempCells}</div>));
+    boardCells.push((<div key={i} className={"cell-col"}>{colCells}</div>));
   })
 
   return boardCells;
 }
 
-const GameBoard = (props: any) => {
+const GameBoard = ({className, boardState}) => {
   // NOTE gameMode should be a prop passed to GameBoard.
   
   // Default, but we can swap this depending on the game mode.
   const type = CellState.PLAYER; 
 
   return (
-    <div className='window'>
-      {renderBoard(props.boardState, type)}
+    <div id="board-frame" className={`window ${className}`}>
+      {renderBoard(boardState, type)}
     </div>
   )
 }

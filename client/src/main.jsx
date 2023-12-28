@@ -4,10 +4,10 @@ import Game from './pages/Game'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css'
 import '98.css';
-import subscriber from './hooks/useWebSocket';
+import socketManager from './hooks/useWebSocket';
 
 
-subscriber.subscribe('message', (socket) => {
+socketManager.subscribe('message', (socket) => {
   console.log("Direct Access to socket if needed too.", socket);
 })
 

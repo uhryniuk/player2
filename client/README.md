@@ -1,5 +1,12 @@
 # todos
 
+- [ ] Finish strucuture and sizing of the layouts, blocks for each section of the app.
+
+- [ ] Reconfig useWebSocket.ts
+    - I don't like having the datastructure as the file name.
+
+
+
 ## Frontend Layout
 
 
