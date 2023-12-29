@@ -1,27 +1,32 @@
-import React from "react";
-
+import React, { useState } from 'react'
+import Login from './Login'
 
 const Nav = (props: any) => {
+	const [isLoginOpen, setIsLoginOpen] = useState(false)
 
-  /*
-   * <header> 
-   *    - wrapper around all content inside the navigation.
-   *    - Control it's max dimensions and flow of children.
-   *
-   * NOTE the header should be the blue window bar.
-   * Make the whole site one big windows 90 screen.
-   */
-  return (
-    <header className='nav title-bar'>
-      {/* This class semantic stuff may go haywire. */}
-      <div className='nav-child left title-bar-text'>connect4</div>
-      <div className='nav-child right title-bar-control'>
-        <button>login</button>
-      </div>
+	const openLogin = () => {
+		setIsLoginOpen(true)
+	}
 
-    </header>
-  )
+	const closeLogin = () => {
+		setIsLoginOpen(false)
+	}
 
+	return (
+		<>
+			<header className='nav title-bar'>
+				<div className='nav-child left title-bar-text'>connect4</div>
+				<div className='nav-child right title-bar-controls'>
+					<button aria-label='Minimize'></button>
+					<button aria-label='Maximize'></button>
+					<button aria-label='Close'></button>
+				</div>
+			</header>
+			{/* Make this look like the 'File Edit View' */}
+			<button onClick={openLogin}>login</button>
+			{<Login isOpen={isLoginOpen} onClose={closeLogin} children={null}></Login>}
+		</>
+	)
 }
 
-export default Nav;
+export default Nav

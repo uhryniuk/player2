@@ -1,17 +1,13 @@
-import React from "react";
-import { CellState } from "./Cell";
+import React from 'react'
+import { CellState } from './Cell'
 
-type Board = CellState[][];
+type Board = CellState[][]
 
-type Cell = React.JSX.Element;
+type Cell = React.JSX.Element
 
 type Subscription = {
-  key: String, 
-  data: Object,
+	key: string
+	data: Object
 }
 
-export type {
-  Board,
-  Cell,
-  Subscription,
-}
+export type { Board, Cell, Subscription }

@@ -3,11 +3,15 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  max-height: 50%;
 }
 
 #thread {
   flex: 1; /* stretchs to parent */
   background: white;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  
   margin: 4px;
   padding: 4px;
   

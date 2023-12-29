@@ -1,9 +1,18 @@
 
-/* Board, Row and Cell */
-#board-frame {
+/* Container to make the gray borders pretty */
+#board-container {
   display: flex;
   flex-direction: column;
 }
+
+/* Board, Row and Cell */
+#board-frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+}
+
 .cell-col {
   display: flex; 
   flex: 1; /* strechts row to fit */

@@ -1,3 +1,4 @@
+/* pseduo class for sensible defaults? */
 :root {
   user-select: none;
   text-rendering: optimizeLegibility;
@@ -6,9 +7,31 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  margin: 0 auto;
+html {
+  /* Stretch the backgorund image into place */
+  background-image: url('../assets/win98-hd.png');
+  background-repeat: no-repeat;
+  background-color: silver;
+  background-size: 100vw 100vh;
+}
+
+html, body {
   box-sizing: border-box;
-  padding: 0%;
+  margin: 0; 
+  padding: 0;
+
+  /* Center the game window */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Margin for window */
+  margin: 4vh 0 0 0;
 }
 

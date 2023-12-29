@@ -1,8 +1,3 @@
-#window {
-  min-height: 99vh;
-}
-
-
 #layout {
   display: flex;
   flex-direction: column;
@@ -12,9 +7,11 @@
 }
 
 #container {
-  min-width: 80vw;
-  min-height: 80vh;
   display: flex;
+  min-width: 65vw;
+  max-width: 65vw;
+  min-height: 80vh;
+  max-height: 80vh;
 }
 
 .col {
@@ -36,4 +33,5 @@
   display: flex;
 }
 
-
+@media only screen and (max-width: 600px) {
+}

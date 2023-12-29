@@ -1,0 +1,20 @@
+/* Top level elem for managing items in the modal */
+#modal-container {
+  /* Centering all children */ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Creating the floating container */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  
+  /* Tint and set z-index since leaderboard table is weird */
+  /* background: rgba(0,0,0,0.3); */
+  z-index: 1; 
+}
+
+

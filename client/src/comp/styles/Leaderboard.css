@@ -5,7 +5,7 @@
 */
 #leaderboard {
   display: flex;
-  max-height: 25vh;
+  max-height: 50%;
 }
 
 #table-container {
