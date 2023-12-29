@@ -10,15 +10,13 @@ use axum::{
     Router,
 };
 
-use crate::{games::connect4::GameState, models::minimax::Minimax};
-use tracing::{self, info};
+use crate::{games::connect4::{GameState, Board}, models::minimax::Minimax};
 
 use serde_json::{self, json};
 
-use super::utils::{self, RouterInfo};
+use super::utils::{RouterInfo, Subscription};
 
-const conn_pool: i8 = 13;
-// Create Arc HashMap to send data between functions?
+
 
 pub async fn raw(
     Path((one, two)): Path<(String, String)>,
@@ -49,11 +47,25 @@ async fn handler(queries: Query<HashMap<String, String>>, ws: WebSocketUpgrade) 
     ws.on_upgrade(handle_socket)
 }
 
+fn board_handler(sub: Subscription<GameState>) -> Subscription<GameState> {
+    return sub
+}
+
 async fn handle_socket(mut socket: WebSocket) {
     while let Some(msg) = socket.recv().await {
         let msg = if let Ok(msg) = msg {
-            println!("{:?}", Json::from(msg));
-            Message::Text(json!({"board": GameState::blank_board(), "value": 123}).to_string())
+             
+            // TODO we should parse, and handle each subscription based on the key
+            // Then each handler function will return Json<Value>
+            // This meams we can easily return whatever based on the input.
+            let raw_message: &str = msg.to_text().unwrap();
+            let g: Subscription<GameState> = serde_json::from_str(raw_message).unwrap();
+            
+            
+            let sub: Subscription<GameState> = serde_json::from_str(raw_message).unwrap();
+
+            println!("{:?}", sub);
+            Message::Text(json!({"key": sub.key, "data": sub.data}).to_string())
         } else {
             // client disconnected
             println!("Disconnect:  {:?}", 123);

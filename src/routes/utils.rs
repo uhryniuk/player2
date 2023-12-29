@@ -38,12 +38,11 @@ impl RouterInfo {
     }
 }
 
-/// Object container WebSocket Subscription Information.
-/// Useful for interacting with certain subscribed services.
+// TODO this should be a trait...
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Subscription<T> {
-    key: String,
-    data: T 
+    pub key: String, // Handler (board, chat, analytics)
+    pub data: T      // Agreed object type (GameState, ChatMessage)
 }
 
 
