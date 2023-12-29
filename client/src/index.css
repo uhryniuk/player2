@@ -9,7 +9,7 @@
 
 html {
   /* Stretch the backgorund image into place */
-  background-image: url('../assets/win98-hd.png');
+  background-image: url('./assets/win98-hd.png');
   background-repeat: no-repeat;
   background-color: silver;
   background-size: 100vw 100vh;

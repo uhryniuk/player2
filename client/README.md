@@ -1,40 +1,34 @@
-# todos
+# 🤖 Player2
 
-- [ ] Finish strucuture and sizing of the layouts, blocks for each section of the app.
+Play Connect 4 with your friends! (even the one's without a soul). Player2 is an implementation of the classic game of Connect 4 but always allows you to find a partner using online matchmaking or simply playing against an AI.
 
-- [ ] Reconfig useWebSocket.ts
-    - I don't like having the datastructure as the file name.
-
+> Insert screenshot here.
 
 
-## Frontend Layout
+You are able to create an account, invite your friends to a private match or even find someone in solo queue.
+
+Additioanlly, when playing against the AI you can select it's difficulty and see how high you can rank in the Leaderboards.
 
 
-## Frontend style/theme
-some fluid background that's black with lighting.
+## Gameplay
 
-~~Floating Gameboard, chat, leaderboards,~~
-~~All with the glassy style background goodness.~~
+> Add link for live deployment where to acutally play.
+> Also tell these boyos how to play and all of the features...
 
-Nah, the above is too nice, fuck this project
-- we using 98.css
-https://unpkg.com/98.css
+## Build and Deployment
+
+I got you covered dog, below is the steps to get this bad boy up and running locally so you can tinker on your own.
+
+## Prerequisites
+
+> Rust version, npm version.
+
+### Run Locally
+
+> `cargo r & || cd client && npm run dev & || echo duhhh`
+
+### Deployment
+
+> Wanna host your own? I got some containers for you homie.
 
 
-
-## Rebuild Game
-- Add multiplayer
-- Add simulated multiplayer with AI.
-- Add chat functionality?
-- Auth
-- Leaderboards / standings
-    - Wins, Losses, Total moves, avg moves, 
-    - Add dumbie values as well.
-        - Scrap some random usernams from reddit or some shit.
-
-## Infra
-- Remove the nginx config, that'll go on linode.
-    - Nevermind, the nginx config isn't for deployment now.
-    - It's for building a local docker dev container.
-
-- convert all js to ts.
