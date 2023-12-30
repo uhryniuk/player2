@@ -27,7 +27,7 @@ impl Config {
             _ => Ipv4Addr::LOCALHOST,
         };
 
-        let default_port: u16 = 9988;
+        let default_port: u16 = 8080;
         let port: u16 = match env::var("PORT") {
             Ok(port_string) => port_string.parse().unwrap_or_else(|_| default_port),
             Err(_) => {

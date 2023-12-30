@@ -2,7 +2,7 @@ import utils from './utils'
 import checkWinner from './check-winner'
 
 const URLs = {
-	MINIMAX_ENDPOINT: 'http://localhost:9988/api/connect4/make-move',
+	MINIMAX_ENDPOINT: 'http://localhost:8080/api/connect4/make-move',
 }
 
 function convertBoardTypes(board, toInt) {

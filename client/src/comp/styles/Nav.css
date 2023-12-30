@@ -1,18 +1,8 @@
-
-
-.nav {
-  max-height: 10vh;
+/* Styles for the 'File Edit View' buttons */
+.nav-button-group {
+  display: flex;
+}
+.nav-button {
+  margin: 5px 8px 5px 8px;
 }
 
-
-.nav-child {
-
-}
-
-.nav-child .right {
-
-}
-
-.nav-child .right {
-
-}

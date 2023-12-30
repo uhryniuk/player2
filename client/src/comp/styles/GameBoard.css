@@ -1,4 +1,6 @@
 
+
+
 /* Container to make the gray borders pretty */
 #board-container {
   display: flex;
@@ -21,14 +23,24 @@
   flex: 1; /* stretchs the cell to fit */
 }
 
+:root {
+  --default: black !important;
+  --royal-blue: #003366 !important;
+  --burgundy-red: #800020 !important;
+  --forest-green: #008000 !important;
+  --golden-yellow: #FFD700 !important;
+  --classic-grey: #808080 !important;
+  --purple-haze: #800080 !important;
+}
+
 /* Free, Player 1 and Player 2 states. */
 .cell-0 {
   background: white;
 }
 .cell-1 {
-  background: red;
+  background: #003366 !important;
 }
 .cell-2 {
-  background: blue;
+  background: #800020 !important;
 }
 
