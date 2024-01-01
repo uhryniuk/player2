@@ -2,7 +2,7 @@
 
 Play Connect 4 with your friends! (even the one's without a soul). Player2 is an implementation of the classic game of Connect 4 but always allows you to find a partner using online matchmaking or simply playing against an AI.
 
-![teaser]("./images/v1-screenshot.png")
+![teaser]("/images/v1-screenshot.png")
 
 You are able to create an account, invite your friends to a private match or even find someone in solo queue.
 
