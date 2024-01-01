@@ -1,4 +1,4 @@
-# 🤖 Player2
+# 🤖 Player2 (In Progress)
 
 Play Connect 4 with your friends! (even the one's without a soul). Player2 is an implementation of the classic game of Connect 4 but always allows you to find a partner using online matchmaking or simply playing against an AI.
 
