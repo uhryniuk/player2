@@ -1,6 +1,6 @@
 import { Subscription } from '../models/Types'
 
-const socket = new WebSocket('ws://localhost:8080/api/connect4/ws')
+const socket = new WebSocket('ws://localhost:8080/api/v1/ws')
 
 // Defaults, but subcribe can be on any key.
 const channels = {

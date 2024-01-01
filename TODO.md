@@ -43,6 +43,15 @@
 - Don't delete but disconnect Websockets on frontend.
 - Finish the game implementation.
 
+auth
+user
+board
+config
+server
+main
+connect4
+
+
 ##### Client
 - Build a better modal component to spawn whatever content I need.
 - Build a stream for adding new 'event' messages to chat for whatever reasons.
