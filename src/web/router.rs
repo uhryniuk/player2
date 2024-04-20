@@ -62,8 +62,9 @@ impl RouterInspector {
             
             // Extend the route logs with the nested route logs
             self.route_logs.extend(router.route_logs);
-            self.route_logs.iter_mut().for_each(|rl| rl.add_prefix(path.clone()));
         }
+
+        self.route_logs.iter_mut().for_each(|rl| rl.add_prefix(path.clone()));
 
         self
     }

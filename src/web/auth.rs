@@ -1,5 +1,9 @@
+use axum::Form;
 use axum::{response::Html, Json};
-use crate::web::router::{RouterInspector, Method::GET, get};
+use crate::web::router::{RouterInspector, Method::{GET, POST}, get, post};
+use crate::db::models::NewUser;
+
+use serde_json::{json, Value};
 
 
 async fn hello_world() -> Html<&'static str> {
@@ -13,24 +17,16 @@ async fn hello_world() -> Html<&'static str> {
     Html(html)
 }
 
-async fn other() -> Html<&'static str> {
-    let html = 
-        "<h1>\
-            YEAAAAH BOOOOI!\
-        </h1>
-        ";
-    Html(html)
-}
-
-async fn login() -> Json<String> {
-    Json(String::from("Hello world"))
+async fn login(Form(user): Form<NewUser>) -> Json<Value> {
+    
+    let new_user: NewUser = user.try_into().unwrap();
+    Json(json!({"hello": new_user.username}))
 }
 
 pub fn inspector() -> RouterInspector {
     let router_inspector = RouterInspector::default()
         .add("/", GET, get(hello_world))
-        .add("/other", GET, get(other))
-        .add("/login", GET, get(login));
+        .add("/login", POST, post(login));
     
     router_inspector
 }

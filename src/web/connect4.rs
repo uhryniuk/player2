@@ -20,6 +20,7 @@ use axum::{
 
 use serde_json::{self, json};
 
+
 pub trait Minimax<T: Clone, S: Clone + Ord> {
     /// Compares which value in all children is the best, max is true, then we max the first layer
     fn get_move(&self, depth: i32, max: bool) -> T {

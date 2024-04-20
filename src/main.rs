@@ -1,6 +1,10 @@
 mod config;
 mod web;
+mod db;
 
+use std::collections::HashMap;
+
+use db::models::{User, NewUser};
 use web::{
     auth,
     connect4,
@@ -14,6 +18,21 @@ use config::{ENV_TYPE, var, SINGLETON};
 
 use tracing::{span, Level};
 use tracing_subscriber::fmt::format::FmtSpan;
+
+struct AppState {
+    users: HashMap<String, User>,
+    counter: i32,
+}
+
+impl AppState {
+    pub fn new() -> AppState{
+        AppState {
+            users: HashMap::new(),
+            counter: 0,
+        }
+
+    }
+}
 
 
 #[tokio::main]
