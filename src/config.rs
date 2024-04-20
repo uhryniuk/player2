@@ -1,67 +1,34 @@
-use dotenv::dotenv;
+use std::collections::HashMap;
 use std::env;
-use std::net::Ipv4Addr;
 use std::option::Option;
-use std::str::FromStr;
+use std::sync::Mutex;
+use once_cell::sync::Lazy;
 
-#[derive(Debug, Clone)]
-pub struct Config {
-    pub env: EnvironmentType,
-    pub host: Ipv4Addr,
-    pub port: u16,
-    pub tls_cert: Option<String>,
-    pub tls_key: Option<String>,
+
+type SingletonHashMap = HashMap<&'static str, &'static str>;
+type EnvVar = &'static str;
+
+/// This is a Lazy<Mutex<Map
+///
+/// Can be hard to access data inside of Lazy.
+/// Therefore it's easy to wrap it in a mutex and access it.
+/// This is okay with simple referencing, but anything async would go kablooie 
+pub static SINGLETON: Lazy<Mutex<SingletonHashMap>> = Lazy::new({|| {
+    let mut map = HashMap::new();
+    map.insert("Blah", "LBoop");
+    Mutex::new(map) 
+}});
+
+pub const PORT: EnvVar = "PORT";
+pub const ENV_TYPE: EnvVar = "ENV";
+pub const DB_PORT: EnvVar = "DB_PORT";
+pub const DB_ADDR: EnvVar = "DB_ADDR";
+
+/// Helper to parse env file and get a juicy option back.
+///  
+/// NOTE Consider looking at lazy loading these 
+pub fn var(key: EnvVar) -> Option<String> {
+    dotenv::dotenv().ok();
+    return env::var(key).ok()
 }
-
-impl Config {
-    pub fn init() -> Config {
-        dotenv().ok(); // Read the .env file
-
-        let env = match env::var("ENV") {
-            Ok(value) => EnvironmentType::from_str(value.as_str()).unwrap(),
-            Err(_) => EnvironmentType::PROD,
-        };
-
-        let host = match env {
-            EnvironmentType::PROD => Ipv4Addr::from([0, 0, 0, 0]),
-            _ => Ipv4Addr::LOCALHOST,
-        };
-
-        let default_port: u16 = 8080;
-        let port: u16 = match env::var("PORT") {
-            Ok(port_string) => port_string.parse().unwrap_or_else(|_| default_port),
-            Err(_) => {
-                // TODO add debug level log since port wasn't found.
-                default_port
-            }
-        };
-
-        Config {
-            env,
-            host,
-            port,
-            tls_cert: None,
-            tls_key: None,
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub enum EnvironmentType {
-    PROD,
-    DEV,
-    LOCAL,
-}
-
-impl FromStr for EnvironmentType {
-    type Err = EnvironmentType;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s.to_uppercase().as_str() {
-            "PROD" => Ok(EnvironmentType::PROD),
-            "DEV" => Ok(EnvironmentType::DEV),
-            "LOCAL" => Ok(EnvironmentType::LOCAL),
-            _ => Err(EnvironmentType::LOCAL),
-        }
-    }
-}
+    

@@ -1,31 +1,28 @@
-import React from 'react'
-import './styles/Login.css'
+import React from "react";
+import Modal from "./Modal";
 
-// TODO create EventListener to close when ESC key is pressed.
 
-const Login = ({ isOpen, onClose, children }) => {
-	if (!isOpen) {
-		return null
-	}
+const Login = ({isOpen, onClose}) => {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <form>
+        <div className="field-row-stacked" style={{width: "200px"}}>
+          <label htmlFor="text22" >Email</label>
+          <input id="text22" type="email" value="admin@contoso.com"/>
+        </div>
+        <div className="field-row-stacked" style={{width: "200px"}}>
+          <label htmlFor="text23">Password</label>
+          <input id="text23" type="password" value="hunter2"/>
+        </div>
+        <div className="field-row-stacked" style={{width: "200px"}}>
+          <label htmlFor="text24">Favorite Number</label>
+          <input id="text24" type="number" value="98"/>
+        </div>
+      </form>
 
-	return (
-		<div id='modal-container' onClick={onClose}>
-			<div className='window'>
-				<div className='title-bar'>
-					<div className='title-bar-text'>A Window With Stuff In It</div>
-					<div className='title-bar-controls'>
-						<button aria-label='Minimize'></button>
-						<button aria-label='Maximize'></button>
-						<button aria-label='Close' onClick={onClose}></button>
-					</div>
-				</div>
-				<div className='window-body'>
-					<p>There's so much room for activities!</p>
-					{children}
-				</div>
-			</div>
-		</div>
-	)
+      <p>hello world!</p>
+    </Modal> 
+  )
 }
 
-export default Login
+export default Login;

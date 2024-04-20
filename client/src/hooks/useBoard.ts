@@ -1,7 +1,7 @@
 import { Board } from '../models/Types'
 import config from '../lib/config'
 
-const x = 'http://localhost:8080/api/connect4/make-move'
+const x = 'http://localhost:8080/api/v1/make-move'
 
 console.log(config)
 const agent = () => {

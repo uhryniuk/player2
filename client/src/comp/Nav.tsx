@@ -29,7 +29,7 @@ const Nav = () => {
 			  <div onClick={openLogin} className='nav-button' ><u>H</u>elp</div>
       </section>
 
-			{<Login isOpen={isLoginOpen} onClose={closeLogin} children={null}></Login>}
+			{<Login isOpen={isLoginOpen} onClose={closeLogin}></Login>}
 		</>
 	)
 }
